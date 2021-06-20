@@ -6,17 +6,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
 
     <application
         android:name="com.zfdang.TouchHelperApp"
-        android:largeHeap="true"
         android:allowBackup="true"
         android:icon="@drawable/ic_touch_helper_icon"
         android:label="@string/app_name"
+        android:largeHeap="true"
+        android:persistent="true"
         android:roundIcon="@drawable/ic_touch_helper_icon"
         android:supportsRtl="true"
-        android:persistent="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
@@ -27,11 +28,12 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".TouchHelperService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+        <service
+            android:name=".service.TouchHelperService"
             android:enabled="true"
             android:exported="true"
-            android:label="@string/touch_helper_service_label">
+            android:label="@string/touch_helper_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
@@ -47,6 +49,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
